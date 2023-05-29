@@ -51,9 +51,9 @@ def display_prices(menu):
 
 
 def display_resources(ingredients):
-    water = ingredients['water']
-    milk = ingredients['milk']
-    coffee = ingredients['coffee']
+    water = ingredients["water"]
+    milk = ingredients["milk"]
+    coffee = ingredients["coffee"]
 
     return f"Resources available:\n Water: {water}ML\n Milk: {milk}ML\n Coffee:{coffee}ML"
 
@@ -93,6 +93,12 @@ def charge_customer(paid_amount, cost):
         return True
 
 
+def make_drink(order):
+    for i in order["ingredients"]:
+        resources[i] -= order["ingredients"][i]
+    print(f"Here is your drink, please enjoy!\n")
+
+
 print(display_prices(MENU))
 is_on = True
 
@@ -110,10 +116,10 @@ while is_on:
     elif user_choice == "c":
         choice = MENU["cappuccino"]
 
-    ingredient_check(choice['ingredients'])
+    ingredient_check(choice["ingredients"])
     paid = process_money()
-    if charge_customer(paid, choice['cost']):
+    if charge_customer(paid, choice["cost"]):
         print("Vending")
-
+        make_drink(choice)
 
 
